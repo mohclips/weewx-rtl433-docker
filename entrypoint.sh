@@ -5,6 +5,8 @@ set -o errexit
 set -o pipefail
 set -x
 
+# usb list
+/usr/bin/usb-devices | grep -B4 "RTL"
 # setup syslog to write to docker logs
 echo "*.*  /proc/1/fd/1" > /etc/syslog.conf
 /usr/sbin/syslogd -n -S &
