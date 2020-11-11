@@ -45,4 +45,6 @@ RUN wget -qO - http://weewx.com/keys.html | apt-key add - \
 
 # our start up script
 COPY entrypoint.sh /usr/local/bin
+# weewx health check
+COPY healthcheck.sh /usr/local/bin
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
