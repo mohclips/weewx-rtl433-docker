@@ -1,4 +1,4 @@
-version: '2.0'
+version: '2.4'
 
 services:
 
@@ -7,7 +7,8 @@ services:
     #build: .
     tty: true
     container_name: rtl433_weewx
-    #restart: always
+    # restart always = if unhealthy re-start the container
+    restart: always
     # need this to access the usb properly
     privileged: true
     devices:
@@ -22,3 +23,16 @@ services:
       - ./weewx.conf:/etc/weewx/weewx.conf:ro
       # upload the updated sdr parser config
       - ./sdr.py:/usr/share/weewx/user/sdr.py
+
+    # check health here:   docker inspect --format='{{json .State.Health}}' rtl433_weewx | jq .
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "/usr/local/bin/healthcheck.sh",
+        ]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      # delay long enough for weewx to gather an update and send to WU 
+      start_period: 3m
