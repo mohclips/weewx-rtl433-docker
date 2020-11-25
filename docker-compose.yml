@@ -16,7 +16,10 @@ services:
       ##- /dev/bus/usb:/dev/bus/usb
       # or select them directly
       - /dev/bus/usb/005/002:/dev/bus/usb/005/002
-  
+ 
+    networks:
+      - mysql_network
+ 
     volumes:
       - ./shared/:/tmp/shared/
       # upload our config
@@ -36,3 +39,14 @@ services:
       retries: 3
       # delay long enough for weewx to gather an update and send to WU 
       start_period: 3m
+
+# we have to specify the network subnet as that is what mysql expects the container to connect from
+networks:
+  mysql_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.80.0/24"
+          gateway: "192.168.80.1"
+
