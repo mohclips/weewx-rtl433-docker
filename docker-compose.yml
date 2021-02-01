@@ -15,7 +15,8 @@ services:
       # you need to either allow access to all usb devices
       ##- /dev/bus/usb:/dev/bus/usb
       # or select them directly
-      - /dev/bus/usb/005/002:/dev/bus/usb/005/002
+      #- /dev/bus/usb/005/002:/dev/bus/usb/005/002
+      - /dev/bus/usb/002/002:/dev/bus/usb/002/002
  
     networks:
       - mysql_network
