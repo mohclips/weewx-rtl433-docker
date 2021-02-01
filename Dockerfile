@@ -33,7 +33,7 @@ RUN build_deps='gcc git automake libtool cmake libbladerf-dev librtlsdr-dev make
 RUN wget -qO - http://weewx.com/keys.html | apt-key add - \
   && wget -qO - http://weewx.com/apt/weewx-python3.list | tee /etc/apt/sources.list.d/weewx.list \
   && apt-get update \
-  && apt install -y --no-install-recommends weewx inetutils-syslogd python3-mysqldb mariadb-client \
+  && apt install -y --no-install-recommends weewx inetutils-syslogd python3-mysqldb mariadb-client procps \
   && rm -rf /var/lib/apt/lists/* \
   && wget --no-check-certificate -O weewx-sdr.zip https://github.com/matthewwall/weewx-sdr/archive/master.zip \
   && apt -y --auto-remove purge wget gnupg2 \
